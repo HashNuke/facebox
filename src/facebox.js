@@ -240,7 +240,14 @@
       var url    = window.location.href.split('#')[0]
       var target = href.replace(url,'')
       if (target == '#') return
-      $.facebox.reveal($(target).html(), klass)
+      var target_element = $(target)
+
+      if (target_element.length > 0)
+      {
+        target_element.detach()
+        $(document).data('facebox_' + target, target_element.html())
+      }
+      $.facebox.reveal($(document).data('facebox_' + target), klass)
 
     // image
     } else if (href.match($.facebox.settings.imageTypesRegexp)) {
